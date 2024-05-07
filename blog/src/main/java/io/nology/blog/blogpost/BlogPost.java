@@ -1,13 +1,9 @@
 package io.nology.blog.blogpost;
 
+import jakarta.persistence.*;
 import java.util.Date;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "blog_posts")
@@ -18,57 +14,60 @@ public class BlogPost {
     
     @Column(columnDefinition = "LONGTEXT")
     private String content;
+    
     @Column
     private String title;
+    
     @Column
-    private Date createdAt; 
-    @Column
-    private String category;
+    private Date createdAt;
 
-    BlogPost() {}
+    @ManyToMany
+    @JoinTable(
+        name = "post_categories",
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories = new HashSet<>();
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "BlogPost [id=" + id + ", content=" + content + ", title=" + title + ", createdAt=" + createdAt
-                + ", category=" + category + "]";
-    }
+    public BlogPost() {}
 
     public Long getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getContent() {
         return content;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public String getCategory() {
-        return category;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    
+    public Set<Category> getCategories() {
+        return categories;
+    }
 
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
 }

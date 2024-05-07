@@ -12,9 +12,19 @@ const AllPostsPage = () => {
             .catch(error => console.error('Error fetching posts:', error));
     }, []);
 
+    function deletePost(id) {
+        fetch(`http://localhost:8080/posts/${id}`, { method: 'DELETE' })  
+            .then(() => {
+                setPosts(posts.filter(post => post.id !== id));
+                alert('Post deleted successfully');
+            })
+            .catch(error => console.error('Error deleting post:', error));
+    }
+
+
     return (
-      <>
-      <h1 className={style.heading}>All Posts</h1>
+    <>
+    <h1 className={style.heading}>All Posts</h1>
         <div className={style.container}> 
             {posts.map(post => (
                 <div className={style.post} key={post.id}>
@@ -28,17 +38,9 @@ const AllPostsPage = () => {
                 </div>
             ))}
         </div>
-        </>
+    </>
     );
 
-    function deletePost(id) {
-        fetch(`http://localhost:8080/posts/${id}`, { method: 'DELETE' })  
-            .then(() => {
-                setPosts(posts.filter(post => post.id !== id));
-                alert('Post deleted successfully');
-            })
-            .catch(error => console.error('Error deleting post:', error));
-    }
 };
 
 export default AllPostsPage;
