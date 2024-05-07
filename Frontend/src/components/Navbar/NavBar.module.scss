@@ -1,0 +1,25 @@
+.nav {
+  background: #001879;
+  box-shadow: inset 0 0 50px 0 rgba(0, 0, 0, 0.733);
+  border: 5px solid #c2c3c1;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+  padding-left: 20px;
+  .home, .posts, .newPost {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    text-decoration: none;
+    color: #c2c3c1;
+    &:hover {
+      color: #fff;
+    }
+    &:active {
+      text-shadow: #000000 0px 1px 2px;
+      color: #c2c3c1;
+      text-decoration: solid;
+    }
+  }
+}
